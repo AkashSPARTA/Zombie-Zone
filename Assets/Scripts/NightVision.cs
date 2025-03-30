@@ -39,6 +39,6 @@ public class NightVision : MonoBehaviour
                 zoomBar.fillAmount = cam.fieldOfView / 100;
             }
         }
-        BatteryPower.fillAmount -= 0.05f * Time.deltaTime;
+        BatteryPower.fillAmount -= 0.005f * Time.deltaTime;
     }
 }

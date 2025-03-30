@@ -51,6 +51,7 @@ public class PickupScript : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         SaveScript.weaponAmts[objID]++;
+                        audioPlayer.clip = pickupSounds[3];
                         audioPlayer.Play();
                         SaveScript.changeWeapon = true;
                         Destroy(hit.transform.gameObject, 0.2f);
@@ -66,6 +67,7 @@ public class PickupScript : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         SaveScript.itemAmts[objID]++;
+                        audioPlayer.clip = pickupSounds[3];
                         audioPlayer.Play();
                         SaveScript.changeItems = true;
                         Destroy(hit.transform.gameObject, 0.2f);
@@ -81,6 +83,7 @@ public class PickupScript : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         SaveScript.ammoAmts[objID]++;
+                        audioPlayer.clip = pickupSounds[3];
                         audioPlayer.Play();
                         SaveScript.changeItems = true;
                         Destroy(hit.transform.gameObject, 0.2f);
@@ -94,7 +97,21 @@ public class PickupScript : MonoBehaviour
                     doorMessage.text = hit.transform.gameObject.GetComponent<DoorType>().message;
                     if (Input.GetKeyDown(KeyCode.E))
                     {
+                        audioPlayer.clip = pickupSounds[objID];
                         audioPlayer.Play();
+                        if (hit.transform.gameObject.GetComponent<DoorType>().opened == false)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "Press E to close the door";
+                            hit.transform.gameObject.GetComponent<DoorType>().opened = true;
+                            hit.transform.gameObject.GetComponent<Animator>().SetTrigger("Open");
+                        }
+                        else if (hit.transform.gameObject.GetComponent<DoorType>().opened == true)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "Press E to open the door";
+                            hit.transform.gameObject.GetComponent<DoorType>().opened = false;
+                            hit.transform.gameObject.GetComponent<Animator>().SetTrigger("Close");
+                        }
+                        
                     }
                 }
 

@@ -29,7 +29,7 @@ public class LookMode : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.N))
         {
-            if (SaveScript.inventoryOpen == false)
+            if (SaveScript.inventoryOpen == true)
             {
                 if (nightvisionOn == false)
                 {
@@ -81,7 +81,7 @@ public class LookMode : MonoBehaviour
         // Flashlight
         if (Input.GetKeyUp(KeyCode.F))
         {
-            if (SaveScript.inventoryOpen == false)
+            if (SaveScript.inventoryOpen == true)
             {
                 if (flashLightOn == false)
                 {
