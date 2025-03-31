@@ -14,6 +14,7 @@ public class SaveScript : MonoBehaviour
     public static int[] weaponAmts = new int [8];
     public static int[] itemAmts = new int [13];
     public static int[] ammoAmts = new int [2];
+    public static int[] currentAmmo = new int [9];
     public static bool changeWeapon = false;
     public static bool changeItems = false;
 
@@ -29,6 +30,13 @@ public class SaveScript : MonoBehaviour
         itemAmts[1] = 1;
         ammoAmts[0] = 12;
         ammoAmts[1] = 2;
+
+        for (int i = 0; i < currentAmmo.Length; i++)
+        {
+            currentAmmo[i] = 2;
+        }
+        currentAmmo[4] = 12;
+        currentAmmo[6] = 0;
     }
 
     // Update is called once per frame

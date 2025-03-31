@@ -25,6 +25,8 @@ public class WeaponManager : MonoBehaviour
     private AudioSource audioPlayer;
     public AudioClip[] weaponSounds;
     private int currentWeaponID;
+    private bool spraySoundOn = false;
+    public GameObject sprayPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -47,14 +49,52 @@ public class WeaponManager : MonoBehaviour
         {
             if (SaveScript.inventoryOpen == true)
             {
-                SaveScript.inventoryOpen = true;
-                anim.SetTrigger("Attack");
-                audioPlayer.clip = weaponSounds[SaveScript.weaponID];
-                audioPlayer.Play();
+                if (SaveScript.currentAmmo[SaveScript.weaponID] > 0)
+                {
+                    SaveScript.inventoryOpen = true;
+                    anim.SetTrigger("Attack");
+                    audioPlayer.clip = weaponSounds[SaveScript.weaponID];
+                    audioPlayer.Play();
+
+                    if (SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
+                    {
+                        SaveScript.currentAmmo[SaveScript.weaponID]--;
+                    }
+                }
+                else
+                {
+                    if (SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
+                    {
+                        audioPlayer.clip = weaponSounds[9];
+                        audioPlayer.Play();
+                    }
+                }
             }
             else
             {
                 SaveScript.inventoryOpen = false;
+            }
+        }
+        if(Input.GetMouseButton(0) && sprayPanel.GetComponent<SprayScript>().sprayAmount > 0.0f)
+        {
+            if (SaveScript.weaponID == 6 && SaveScript.inventoryOpen == true)
+            {
+                if (spraySoundOn == false)
+                {
+                    spraySoundOn = true;
+                    anim.SetTrigger("Attack");
+                    StartCoroutine(StartSpraySound());
+                }
+            }
+        }
+        if (Input.GetMouseButtonUp(0) || sprayPanel.GetComponent<SprayScript>().sprayAmount <= 0.0f)
+        {
+            if (SaveScript.weaponID == 6 && SaveScript.inventoryOpen == true)
+            {
+                anim.SetTrigger("Release");
+                spraySoundOn = false;
+                audioPlayer.Stop();
+                audioPlayer.loop = false;
             }
         }
     }
@@ -109,5 +149,13 @@ public class WeaponManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         anim.SetBool("weaponChanged", false);
+    }
+
+    IEnumerator StartSpraySound()
+    {
+        yield return new WaitForSeconds(0.3f);
+        audioPlayer.clip = weaponSounds[SaveScript.weaponID];
+        audioPlayer.Play();
+        audioPlayer.loop = true;
     }
 }

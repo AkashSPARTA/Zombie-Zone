@@ -37,7 +37,7 @@ public class PickupScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.SphereCast(transform.position, 0.5f, transform.forward, out hit, 30, ~excludeLayer))
+        if (Physics.SphereCast(transform.position, 0.3f, transform.forward, out hit, 30, ~excludeLayer))
         {
             if (Vector3.Distance(transform.position, hit.transform.position) < pickupDisplayDistance)
             {
@@ -92,10 +92,13 @@ public class PickupScript : MonoBehaviour
                 else if (hit.transform.gameObject.CompareTag("door"))
                 {
                     objID = (int)hit.transform.gameObject.GetComponent<DoorType>().ChooseDoor;
-
+                    if (hit.transform.gameObject.GetComponent<DoorType>().locked == true)
+                    {
+                        hit.transform.gameObject.GetComponent<DoorType>().message = "Locked. You need to use the " + hit.transform.gameObject.GetComponent<DoorType>().ChooseDoor + " key";
+                    }
                     doorMessageObj.SetActive(true);
                     doorMessage.text = hit.transform.gameObject.GetComponent<DoorType>().message;
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (Input.GetKeyDown(KeyCode.E) && hit.transform.gameObject.GetComponent<DoorType>().locked == false)
                     {
                         audioPlayer.clip = pickupSounds[objID];
                         audioPlayer.Play();

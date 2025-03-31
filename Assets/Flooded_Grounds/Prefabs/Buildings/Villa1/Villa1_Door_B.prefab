@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 3354964}
   - component: {fileID: 2322708}
   - component: {fileID: 6506994}
-  m_Layer: 0
+  - component: {fileID: 7835290484677621790}
+  - component: {fileID: 2388506528868376581}
+  m_Layer: 8
   m_Name: Villa1_Door_B
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 66
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3354964
 MeshFilter:
@@ -97,3 +99,39 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2998155, y: 4.4858165, z: 0.30403447}
   m_Center: {x: -0.62512106, y: 2.2429082, z: -0.0065680817}
+--- !u!114 &7835290484677621790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb351ba0cdfd4b47be842b5c83e742c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChooseDoor: 1
+  opened: 0
+  locked: 0
+  message: 'Press E to open the door '
+--- !u!95 &2388506528868376581
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112190}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c39caff7ebfed9749b5aa54c5798c82d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
