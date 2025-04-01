@@ -27,6 +27,8 @@ public class WeaponManager : MonoBehaviour
     private int currentWeaponID;
     private bool spraySoundOn = false;
     public GameObject sprayPanel;
+    public static bool emptyBottleThrow = false;
+    public static bool fireBottleThrow = false;
 
     // Start is called before the first frame update
     void Start()
@@ -145,6 +147,17 @@ public class WeaponManager : MonoBehaviour
                 break;
         }
     }
+
+    public void BottleThrowEmpty()
+    {
+        emptyBottleThrow = true;
+    }
+
+    public void BottleThrowFire()
+    {
+        fireBottleThrow = true;
+    }
+
     IEnumerator WeaponReset()
     {
         yield return new WaitForSeconds(0.5f);
