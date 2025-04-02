@@ -53,6 +53,15 @@ public class BottleThrow : MonoBehaviour
 
             if (Input.GetMouseButton(1))
             {
+                if(SaveScript.weaponID == 7)
+                {
+                    line.material = mBlue;
+                }
+                if (SaveScript.weaponID == 8)
+                {
+                    line.material = mRed;
+                }
+
                 for (float i = 0; i < linePoints; i += pointDistance)
                 {
                     Vector3 newPoint = startPos + i * startVelocity;
@@ -86,9 +95,10 @@ public class BottleThrow : MonoBehaviour
             if (WeaponManager.fireBottleThrow == true)
             {
                 WeaponManager.fireBottleThrow = false;
-                GameObject createBottle = Instantiate(fireBottleObj, throwPoint.position, throwPoint.rotation);
-                createBottle.GetComponentInChildren<Rigidbody>().velocity = throwPoint.transform.forward * throwPower;
+                GameObject createFireBottle = Instantiate(fireBottleObj, throwPoint.position, throwPoint.rotation);
+                createFireBottle.GetComponentInChildren<Rigidbody>().velocity = throwPoint.transform.forward * throwPower;
                 SaveScript.weaponAmts[7]--;
+                SaveScript.itemAmts[3]--;
                 SaveScript.changeWeapon = true;
             }
         }

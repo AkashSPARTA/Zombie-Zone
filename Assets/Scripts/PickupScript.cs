@@ -44,7 +44,8 @@ public class PickupScript : MonoBehaviour
                 if (hit.transform.gameObject.CompareTag("weapon"))
                 {
                     PickupPanel.SetActive(true);
-                    objID = (int)hit.transform.gameObject.GetComponent<WeaponType>().chooseWeapon;
+                    int chooseWeapon1 = (int)hit.transform.gameObject.GetComponent<WeaponType>().chooseWeapon;
+                    objID = chooseWeapon1;
                     mainImage.sprite = weaponIcons[objID];
                     mainTitle.text = weaponTitles[objID];
 

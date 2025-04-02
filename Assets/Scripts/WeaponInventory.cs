@@ -21,6 +21,7 @@ public class WeaponInventory : MonoBehaviour
     public GameObject useButton, combineButton;
     public GameObject combinePanel, combineUseButton;
     public Image[] combineItems;
+    public GameObject sprayPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,7 @@ public class WeaponInventory : MonoBehaviour
         bigIcon.sprite = bigIcons[0];
         title.text = titles[0];
         description.text = descriptions[0];
-
+        amtsText.text = "Amts: 1";
         combinePanel.SetActive(false);
         combineButton.SetActive(false);
 
@@ -77,6 +78,8 @@ public class WeaponInventory : MonoBehaviour
         {
             ChooseWeapon(0);
         }
+
+        ChooseWeapon(chosenWeaponNumber);
     }
 
     // Update is called once per frame
@@ -107,6 +110,15 @@ public class WeaponInventory : MonoBehaviour
         {
             combinePanel.SetActive(false);
             combineButton.SetActive(false);
+        }
+
+        if (chosenWeaponNumber == 6)
+        {
+            useButton.SetActive(false);
+        }
+        else
+        {
+            useButton.SetActive(true);
         }
     }
 
@@ -146,6 +158,10 @@ public class WeaponInventory : MonoBehaviour
         if (chosenWeaponNumber == 6)
         {
             SaveScript.weaponID = chosenWeaponNumber;
+            if (sprayPanel.GetComponent<SprayScript>().sprayAmount <= 0.0f)
+            {
+                sprayPanel.GetComponent<SprayScript>().sprayAmount = 1.0f;
+            }
         }
         if (chosenWeaponNumber == 7)
         {

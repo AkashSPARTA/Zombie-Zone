@@ -29,6 +29,10 @@ public class WeaponManager : MonoBehaviour
     public GameObject sprayPanel;
     public static bool emptyBottleThrow = false;
     public static bool fireBottleThrow = false;
+    private AnimatorStateInfo animInfo;
+    private bool canAttack = true;
+    private bool sprayEmpty = false;
+    private bool stopSpray = false;
 
     // Start is called before the first frame update
     void Start()
@@ -41,13 +45,22 @@ public class WeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animInfo = anim.GetCurrentAnimatorStateInfo(0);
+        if (animInfo.IsTag("BottleThrow"))
+        {
+            canAttack = false;
+        }
+        else
+        {
+            canAttack = true;
+        }
         if (SaveScript.weaponID != currentWeaponID)
         {
             ChangeWeapons();
         }
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canAttack == true)
         {
             if (SaveScript.inventoryOpen == true)
             {
@@ -79,6 +92,8 @@ public class WeaponManager : MonoBehaviour
         }
         if(Input.GetMouseButton(0) && sprayPanel.GetComponent<SprayScript>().sprayAmount > 0.0f)
         {
+            sprayEmpty = false;
+            stopSpray = false;
             if (SaveScript.weaponID == 6 && SaveScript.inventoryOpen == true)
             {
                 if (spraySoundOn == false)
@@ -91,12 +106,22 @@ public class WeaponManager : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0) || sprayPanel.GetComponent<SprayScript>().sprayAmount <= 0.0f)
         {
-            if (SaveScript.weaponID == 6 && SaveScript.inventoryOpen == true)
+            if (SaveScript.weaponID == 6 && SaveScript.inventoryOpen == true && stopSpray == false)
             {
+                stopSpray = true;
                 anim.SetTrigger("Release");
                 spraySoundOn = false;
                 audioPlayer.Stop();
                 audioPlayer.loop = false;
+            }
+        }
+        if(sprayPanel.GetComponent<SprayScript>().sprayAmount <= 0 && sprayEmpty == false)
+        {
+            sprayEmpty = true;
+            SaveScript.weaponAmts[6]--;
+            if (SaveScript.weaponAmts[6] == 0)
+            {
+                SaveScript.weaponsPickedUp[6] = false;
             }
         }
     }
@@ -160,7 +185,15 @@ public class WeaponManager : MonoBehaviour
 
     public void LoadAnotherBottle()
     {
-        if(SaveScript.weaponID == 7 || SaveScript.weaponID == 8)
+        if(SaveScript.weaponID == 7)
+        {
+            ChangeWeapons();
+        }
+    }
+
+    public void LoadAnotherFireBottle()
+    {
+        if (SaveScript.weaponID == 8)
         {
             ChangeWeapons();
         }

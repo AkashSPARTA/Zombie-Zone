@@ -13,7 +13,8 @@ public class WeaponType : MonoBehaviour
         pistol,
         shotgun,
         sprayCan,
-        Bottle
+        Bottle,
+        BottleWithCloth
     }
 
     public typeOfWeapon chooseWeapon;

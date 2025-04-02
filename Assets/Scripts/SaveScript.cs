@@ -9,9 +9,9 @@ public class SaveScript : MonoBehaviour
     public static bool inventoryOpen = false;
     public static int weaponID = 0;
     public static int itemID = 0;
-    public static bool[] weaponsPickedUp = new bool [8];
+    public static bool[] weaponsPickedUp = new bool [9];
     public static bool[] itemPickedUp = new bool [13];
-    public static int[] weaponAmts = new int [8];
+    public static int[] weaponAmts = new int [9];
     public static int[] itemAmts = new int [13];
     public static int[] ammoAmts = new int [2];
     public static int[] currentAmmo = new int [9];
@@ -23,7 +23,7 @@ public class SaveScript : MonoBehaviour
     void Start()
     {
         weaponsPickedUp[0] = true;
-
+        weaponAmts[0] = 1;
         itemPickedUp[0] = true;
         itemPickedUp[1] = true;
         itemAmts[0] = 1;

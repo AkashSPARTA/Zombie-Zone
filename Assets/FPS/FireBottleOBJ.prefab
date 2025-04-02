@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 8993343914899421279}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 22.227, y: 0, z: 0}
 --- !u!1 &1752002293354443763
 GameObject:
@@ -359,9 +359,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.008686419
-  m_Height: 0.06749239
+  m_Height: 0.05714432
   m_Direction: 1
-  m_Center: {x: 0, y: -0.003054769, z: 0.0009738518}
+  m_Center: {x: 0, y: -0.00070759753, z: 0.0009738518}
 --- !u!54 &7313008358511988010
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -388,7 +388,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1839b54177cb7f64e8d67fe8efa4286c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fbced58cc634bb44db9bdf75ad4c329f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -487,6 +487,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleParent: {fileID: 304373713719412671}
+  destroyTime: 5
+  flames: 1
+  explosion: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
 --- !u!1001 &7094272909909427656
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,9 +10,9 @@ public class SprayScript : MonoBehaviour
     public float drainTime = 0.1f;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
+        sprayFill.fillAmount = sprayAmount;
     }
 
     // Update is called once per frame

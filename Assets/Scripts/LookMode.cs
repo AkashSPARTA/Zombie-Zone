@@ -9,8 +9,10 @@ public class LookMode : MonoBehaviour
     public PostProcessProfile Standard, Nightvision, inventory;
     public GameObject NightVisionOverlay;
     public GameObject FlashLightOverlay, FlashLight, inventoryMenu;
+    public GameObject combinPanel;
     private bool nightvisionOn = false;
     private bool flashLightOn = false;
+    public GameObject pointer;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +75,7 @@ public class LookMode : MonoBehaviour
             else 
             {
                 vol.profile = Standard;
+                combinPanel.SetActive(false);
                 inventoryMenu.SetActive(false);
                 SaveScript.inventoryOpen = false;
             }
@@ -106,6 +109,17 @@ public class LookMode : MonoBehaviour
         if (flashLightOn == true)
         {
             FlashLightOff();
+        }
+
+        if(SaveScript.inventoryOpen == false)
+        {
+            Cursor.visible = true;
+            pointer.SetActive(false);
+        }
+        else
+        {
+            Cursor.visible = false;
+            pointer.SetActive(true);
         }
     }
 
