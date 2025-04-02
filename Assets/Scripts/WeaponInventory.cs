@@ -72,6 +72,11 @@ public class WeaponInventory : MonoBehaviour
         {
             combineItems[1].color = new Color(1, 1, 1, 0.06f);
         }
+
+        if (SaveScript.weaponAmts[chosenWeaponNumber] <= 0)
+        {
+            ChooseWeapon(0);
+        }
     }
 
     // Update is called once per frame
@@ -85,8 +90,11 @@ public class WeaponInventory : MonoBehaviour
         bigIcon.sprite = bigIcons[weaponNumber];
         title.text = titles[weaponNumber];
         description.text = descriptions[weaponNumber];
-        audioPlayer.clip = click;
-        audioPlayer.Play();
+        if (audioPlayer != null)
+        {
+            audioPlayer.clip = click;
+            audioPlayer.Play();
+        }
         chosenWeaponNumber = weaponNumber;
         amtsText.text = "Amt: " + SaveScript.weaponAmts[weaponNumber];
 
@@ -113,7 +121,7 @@ public class WeaponInventory : MonoBehaviour
             {
                 combineUseButton.SetActive(true);
             }
-            else
+            if (SaveScript.itemPickedUp[2] ==  false)
             {
                 combineUseButton.SetActive(false);
             }
@@ -126,7 +134,7 @@ public class WeaponInventory : MonoBehaviour
             {
                 combineUseButton.SetActive(true);
             }
-            else
+            if (SaveScript.itemPickedUp[2] == false || SaveScript.itemPickedUp[3] == false)
             {
                 combineUseButton.SetActive(false);
             }
