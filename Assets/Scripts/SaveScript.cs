@@ -17,11 +17,17 @@ public class SaveScript : MonoBehaviour
     public static int[] currentAmmo = new int [9];
     public static bool changeWeapon = false;
     public static bool changeItems = false;
+    public static float stamina;
+    public static float infection;
+    public static int health;
+    public static GameObject doorObject;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        stamina = FirstPersonController.FPSstamina;
+        health = 100;
         weaponsPickedUp[0] = true;
         weaponAmts[0] = 1;
         itemPickedUp[0] = true;
@@ -49,6 +55,29 @@ public class SaveScript : MonoBehaviour
         if (FirstPersonController.inventorySwitchOn == false)
         {
             inventoryOpen = true;
+        }
+
+        if(Input.GetAxis("Vertical") != 0 && Input.GetKey(KeyCode.LeftShift) && FirstPersonController.FPSstamina > 0.0f)
+        {
+            FirstPersonController.FPSstamina -= 10 * Time.deltaTime;
+            stamina = FirstPersonController.FPSstamina;
+        }
+        if(stamina < 100)
+        {
+            FirstPersonController.FPSstamina += 3.35f * Time.deltaTime;
+            stamina = FirstPersonController.FPSstamina;
+        }
+        if(stamina >= 100)
+        {
+            FirstPersonController.FPSstamina = stamina;
+        }
+        if(infection < 50)
+        {
+            infection += 0.1f * Time.deltaTime;
+        }
+        if (infection > 49 && infection < 100)
+        {
+            infection += 0.4f * Time.deltaTime;
         }
 
         if (changeWeapon == true)
