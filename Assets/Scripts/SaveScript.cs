@@ -21,6 +21,7 @@ public class SaveScript : MonoBehaviour
     public static float infection;
     public static int health;
     public static GameObject doorObject;
+    public static bool gunUsed = false;
 
     public static List<GameObject> zombiesChasing = new List<GameObject>();
 
@@ -73,6 +74,12 @@ public class SaveScript : MonoBehaviour
         {
             FirstPersonController.FPSstamina = stamina;
         }
+        if(Input.GetMouseButtonDown(0) && stamina > 10 & weaponID < 4 && inventoryOpen == true)
+        {
+            FirstPersonController.FPSstamina -= 10;
+            stamina = FirstPersonController.FPSstamina;
+        }
+
         if(infection < 50)
         {
             infection += 0.1f * Time.deltaTime;

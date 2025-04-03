@@ -33,6 +33,7 @@ public class WeaponManager : MonoBehaviour
     private bool canAttack = true;
     private bool sprayEmpty = false;
     private bool stopSpray = false;
+    public AudioClip[] reloadSounds;
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +65,7 @@ public class WeaponManager : MonoBehaviour
         {
             if (SaveScript.inventoryOpen == true)
             {
-                if (SaveScript.currentAmmo[SaveScript.weaponID] > 0)
+                if (SaveScript.currentAmmo[SaveScript.weaponID] > 0 && SaveScript.stamina > 20)
                 {
                     SaveScript.inventoryOpen = true;
                     anim.SetTrigger("Attack");
@@ -74,6 +75,7 @@ public class WeaponManager : MonoBehaviour
                     if (SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
                     {
                         SaveScript.currentAmmo[SaveScript.weaponID]--;
+                        SaveScript.gunUsed = true;
                     }
                 }
                 else
@@ -122,6 +124,21 @@ public class WeaponManager : MonoBehaviour
             if (SaveScript.weaponAmts[6] == 0)
             {
                 SaveScript.weaponsPickedUp[6] = false;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            if (SaveScript.ammoAmts[SaveScript.weaponID - 4] > 0)
+            {
+                if (SaveScript.weaponID == 4 || SaveScript.weaponID == 5)
+                {
+                    SaveScript.currentAmmo[SaveScript.weaponID] += SaveScript.ammoAmts[SaveScript.weaponID - 4];
+                    SaveScript.ammoAmts[SaveScript.weaponID - 4] = 0;
+                    anim.SetTrigger("Reload");
+                    audioPlayer.clip = reloadSounds[SaveScript.weaponID - 4];
+                    audioPlayer.Play();
+                }
             }
         }
     }
