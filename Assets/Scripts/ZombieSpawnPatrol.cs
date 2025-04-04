@@ -27,11 +27,12 @@ public class ZombieSpawnPatrol : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && canSpawn == true)
+        if (other.CompareTag("Player") && canSpawn == true && SaveScript.zombieInGameAmt < 140)
         {
             for (int i = 0; i < zombieSpawnAmt; i++) 
             {
                 Instantiate(zombies[Random.Range(0, zombies.Length)], spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position, spawnPoints[Random.Range(0, spawnPoints.Length)].transform.rotation);
+                SaveScript.zombieInGameAmt++;   
             }
             canSpawn = false;   
         }

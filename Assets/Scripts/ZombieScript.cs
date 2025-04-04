@@ -165,6 +165,18 @@ public class ZombieScript : MonoBehaviour
                         }
                     }
 
+                    if (distanceToPlayer > 200)
+                    {
+                        awareOfPlayer = false;
+                        if (SaveScript.zombiesChasing.Contains(this.gameObject))
+                        {
+                            SaveScript.zombiesChasing.Remove(this.gameObject);
+                            adding = false;
+                        }
+                        SaveScript.zombieInGameAmt--;
+                        Destroy(gameObject);
+                    }
+
                     if (animInfo.IsTag("motion"))
                     {
                         if (anim.IsInTransition((int)zombieStyle))

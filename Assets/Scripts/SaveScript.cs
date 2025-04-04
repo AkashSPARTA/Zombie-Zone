@@ -25,6 +25,7 @@ public class SaveScript : MonoBehaviour
     public static Vector3 bottlePos = new Vector3(0, 0, 0);
     private bool hasSmashed = false;
     public static bool isHidden = false;
+    public static int zombieInGameAmt = 0;
 
     public static List<GameObject> zombiesChasing = new List<GameObject>();
 
