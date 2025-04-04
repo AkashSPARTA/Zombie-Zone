@@ -58,6 +58,14 @@ public class ZombieDamage : MonoBehaviour
                     this.transform.gameObject.GetComponentInParent<ZombieScript>().isAngry = true;
                     damagePlayer.clip = damageSounds[i];
                     damagePlayer.Play();
+                    if (weaponTag[i] == "knife")
+                    {
+                        zombieAnim.SetTrigger("react");
+                    }
+                    if(weaponTag[i] == "cleaver")
+                    {
+                        zombieAnim.SetTrigger("react");
+                    }
                     if (weaponTag[i] == "bat")
                     {
                         zombieAnim.SetTrigger("react");

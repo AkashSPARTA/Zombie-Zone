@@ -24,6 +24,7 @@ public class PickupScript : MonoBehaviour
     private int objID = 0;
     private AudioSource audioPlayer;
     public GameObject doorMessageObj;
+    public GameObject generatorMessageObj;
     public Text doorMessage;
     public AudioClip[] pickupSounds;
 
@@ -36,6 +37,7 @@ public class PickupScript : MonoBehaviour
         PickupPanel.SetActive(false);
         audioPlayer = GetComponent<AudioSource>();
         doorMessageObj.SetActive(false);
+        generatorMessageObj.SetActive(false);
     }
 
     // Update is called once per frame
@@ -107,11 +109,21 @@ public class PickupScript : MonoBehaviour
                     objID = (int)hit.transform.gameObject.GetComponent<DoorType>().ChooseDoor;
                     if (hit.transform.gameObject.GetComponent<DoorType>().locked == true)
                     {
-                        hit.transform.gameObject.GetComponent<DoorType>().message = "Locked. You need to use the " + hit.transform.gameObject.GetComponent<DoorType>().ChooseDoor + " key";
+                        if (hit.transform.gameObject.GetComponent<DoorType>().electricDoor == false)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "Locked. You need to use the " + hit.transform.gameObject.GetComponent<DoorType>().ChooseDoor + " key";
+                        }
+                        if (hit.transform.gameObject.GetComponent<DoorType>().electricDoor == true && SaveScript.generatorOn == false)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "This Door Need Power Supply to Open " + hit.transform.gameObject.GetComponent<DoorType>().ChooseDoor + " key";
+                        }
                     }
-                    if (hit.transform.gameObject.GetComponent<DoorType>().locked == false)
+                    if (hit.transform.gameObject.GetComponent<DoorType>().electricDoor == true && SaveScript.generatorOn == true)
                     {
-                        hit.transform.gameObject.GetComponent<DoorType>().message = "Press E to open the door";
+                        if (hit.transform.gameObject.GetComponent<DoorType>().opened == false)
+                        {
+                            hit.transform.gameObject.GetComponent<DoorType>().message = "Press E to open the door";
+                        }
                     }
                     doorMessageObj.SetActive(true);
                     doorMessage.text = hit.transform.gameObject.GetComponent<DoorType>().message;
@@ -134,6 +146,19 @@ public class PickupScript : MonoBehaviour
                         
                     }
                 }
+                else if (hit.transform.gameObject.CompareTag("Generator"))
+                {
+                    SaveScript.generator = hit.transform.gameObject;
+
+                    if(SaveScript.generatorOn == false)
+                    {
+                        generatorMessageObj.SetActive(true);
+                    }
+                    if (SaveScript.generatorOn == true)
+                    {
+                        generatorMessageObj.SetActive(false);
+                    }
+                }
 
             }
             else
@@ -141,6 +166,8 @@ public class PickupScript : MonoBehaviour
                 PickupPanel.SetActive(false);
                 doorMessageObj.SetActive(false);
                 SaveScript.doorObject = null;
+                generatorMessageObj.SetActive(false);
+                SaveScript.generator = null;
             }
         }
 

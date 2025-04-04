@@ -26,6 +26,8 @@ public class SaveScript : MonoBehaviour
     private bool hasSmashed = false;
     public static bool isHidden = false;
     public static int zombieInGameAmt = 0;
+    public static bool generatorOn = false;
+    public static GameObject generator;
 
     public static List<GameObject> zombiesChasing = new List<GameObject>();
 
@@ -55,6 +57,10 @@ public class SaveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(zombieInGameAmt < 0)
+        {
+            zombieInGameAmt = 0;
+        }
         if (FirstPersonController.inventorySwitchOn == true)
         {
             inventoryOpen = false;

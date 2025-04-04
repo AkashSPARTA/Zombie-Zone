@@ -874,6 +874,7 @@ MonoBehaviour:
   randomState: 1
   randomTiming: 10
   isAngry: 0
+  startInHouse: 1
 --- !u!82 &415455780857887876
 AudioSource:
   m_ObjectHideFlags: 0

@@ -48,6 +48,7 @@ public class ZombieScript : MonoBehaviour
     public bool isAngry = false;
 
     private float hiddenRange = 2f;
+    public bool startInHouse = false;
 
     // Start is called before the first frame update
     void Start()
@@ -155,6 +156,28 @@ public class ZombieScript : MonoBehaviour
                             }
                         }
                     }
+
+                    if (distanceToPlayer < 10 && startInHouse == true)
+                    {
+                        agent.destination = player.transform.position;
+                        awareOfPlayer = true;
+                        chooseState = ZombieState.Walking;
+                        anim.SetTrigger("Walking");
+                        ZombieStartInHouse();
+                        if (adding == true)
+                        {
+                            if (SaveScript.zombiesChasing.Contains(this.gameObject))
+                            {
+                                adding = false;
+                                return;
+                            }
+                            else
+                            {
+                                SaveScript.zombiesChasing.Add(this.gameObject);
+                                adding = false;
+                            }
+                        }
+                    }
                     if (distanceToPlayer > zombieAlertRange)
                     {
                         awareOfPlayer = false;
@@ -173,7 +196,7 @@ public class ZombieScript : MonoBehaviour
                             SaveScript.zombiesChasing.Remove(this.gameObject);
                             adding = false;
                         }
-                        SaveScript.zombieInGameAmt--;
+                        
                         Destroy(gameObject);
                     }
 
@@ -237,6 +260,12 @@ public class ZombieScript : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        SaveScript.zombieInGameAmt--;
+        Debug.Log(SaveScript.zombieInGameAmt);
+    }
+
     void SetAnimState()
     {
         if (awareOfPlayer == false)
@@ -261,6 +290,15 @@ public class ZombieScript : MonoBehaviour
     public void WalkOff()
     {
         agent.isStopped = true;
+    }
+
+    void ZombieStartInHouse()
+    {
+        if(chaseMusicPlayer.isPlaying == false)
+        {
+            chaseMusicPlayer.Play();
+        }
+        chaseMusicPlayer.volume = 0.4f;
     }
 
     IEnumerator ResetGunRange()

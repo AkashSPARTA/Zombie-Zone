@@ -17,6 +17,7 @@ public class DoorType : MonoBehaviour
     [HideInInspector]
     public string message = "Press E to open the door ";
     private Animator anim;
+    public bool electricDoor = false;
 
     // Start is called before the first frame update
     void Start()

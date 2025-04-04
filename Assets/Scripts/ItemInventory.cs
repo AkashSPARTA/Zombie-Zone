@@ -32,6 +32,8 @@ public class ItemInventory : MonoBehaviour
     private bool flashLightRefill = false;
     private bool nightVisionRefill = false;
 
+    public GameObject electricDoorObj;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -222,6 +224,17 @@ public class ItemInventory : MonoBehaviour
                         SaveScript.doorObject.GetComponent<DoorType>().locked = false;
                     }
                 }
+            }
+        }
+
+        if(chosenItemNumber == 12)
+        {
+            if (SaveScript.generator != null)
+            {
+                SaveScript.generatorOn = true;
+                SaveScript.generator.GetComponent<AudioSource>().Play();
+
+                electricDoorObj.GetComponent<DoorType>().locked = false;
             }
         }
     }
