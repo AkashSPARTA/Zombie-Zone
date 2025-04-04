@@ -22,6 +22,10 @@ public class SaveScript : MonoBehaviour
     public static int health;
     public static GameObject doorObject;
     public static bool gunUsed = false;
+    public static Vector3 bottlePos = new Vector3(0, 0, 0);
+    private bool hasSmashed = false;
+    public static bool isHidden = false;
+    public static int zombieInGameAmt = 0;
 
     public static List<GameObject> zombiesChasing = new List<GameObject>();
 
@@ -80,6 +84,12 @@ public class SaveScript : MonoBehaviour
             stamina = FirstPersonController.FPSstamina;
         }
 
+        if (Input.GetKey(KeyCode.C))
+        {
+            FirstPersonController.FPSstamina -= 10f * Time.deltaTime;
+            stamina = FirstPersonController.FPSstamina;
+        }
+
         if(infection < 50)
         {
             infection += 0.1f * Time.deltaTime;
@@ -123,5 +133,21 @@ public class SaveScript : MonoBehaviour
 
         }
 
+        if (bottlePos != Vector3.zero )
+        {
+            if(hasSmashed == false)
+            {
+                StartCoroutine(ResetBottlePos());
+                hasSmashed = true;
+            }
+        }
+
+    }
+
+    IEnumerator ResetBottlePos()
+    {
+        yield return new WaitForSeconds(30);
+        bottlePos = Vector3.zero;
+        hasSmashed = false;
     }
 }

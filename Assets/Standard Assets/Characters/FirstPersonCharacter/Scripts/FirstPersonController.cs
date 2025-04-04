@@ -69,6 +69,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                m_CharacterController.height = 0.2f;
+                m_CharacterController.radius = 0.1f;
+            }
+            if (Input.GetKeyUp(KeyCode.C) || FPSstamina < 20 )
+            {
+                m_CharacterController.height = 1.8f;
+                m_CharacterController.radius = 0.5f;
+            }
+
+
             if (Input.GetKeyDown(KeyCode.I))
             {
                 if (inventorySwitchOn == false)
