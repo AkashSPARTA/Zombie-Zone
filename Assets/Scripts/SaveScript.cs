@@ -55,6 +55,10 @@ public class SaveScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(zombieInGameAmt < 0)
+        {
+            zombieInGameAmt = 0;
+        }
         if (FirstPersonController.inventorySwitchOn == true)
         {
             inventoryOpen = false;

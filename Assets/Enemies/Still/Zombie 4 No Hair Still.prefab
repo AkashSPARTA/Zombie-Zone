@@ -1574,6 +1574,7 @@ MonoBehaviour:
   randomState: 0
   randomTiming: 3
   isAngry: 0
+  startInHouse: 1
 --- !u!195 &8892156006715326974
 NavMeshAgent:
   m_ObjectHideFlags: 0
